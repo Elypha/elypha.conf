@@ -1,1 +1,43 @@
-pass
+[SERVER]
+
+[SOURCE]
+i2rules, filter, https://raw.githubusercontent.com/Elypha/elypha.conf/main/i2rules, false
+
+[General]
+bypass-system = true
+skip-proxy = 192.168.0.0/16, 193.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 100.64.0.0/10, 127.0.0.1, 17.0.0.0/8, localhost, *.local
+bypass-tun = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.0.2.0/24,192.88.99.0/24,192.168.0.0/16,198.18.0.0/15,198.51.100.0/24,203.0.113.0/24,224.0.0.0/4,255.255.255.255/32
+dns-server = system,192.168.1.5,223.5.5.5,114.114.114.114,1.1.1.1,8.8.8.8
+
+[DnsRule]
+DOMAIN-KEYWORD,geosite:apple-cn,LOCAL
+DOMAIN-KEYWORD,geosite:google-cn,LOCAL
+DOMAIN-KEYWORD,geosite:tld-cn,LOCAL
+DOMAIN-KEYWORD,geosite:cn,LOCAL
+DOMAIN-KEYWORD,geosite:geolocation-!cn@cn,LOCAL
+
+[DnsClientIp]
+202.96.209.133
+
+[RoutingDomainStrategy]
+IPIfNonMatch
+
+[Rule]
+IP-CIDR,1.1.1.1/32,PROXY
+IP-CIDR,1.0.0.1/32,PROXY
+IP-CIDR,8.8.8.8/32,PROXY
+IP-CIDR,8.8.4.4/32,PROXY
+
+GEOIP,cn,DIRECT
+GEOIP,private,DIRECT
+
+DOMAIN-KEYWORD,geosite:category-ads-all,REJECT
+
+DOMAIN-KEYWORD,geosite:apple-cn,DIRECT
+DOMAIN-KEYWORD,geosite:google-cn,DIRECT
+DOMAIN-KEYWORD,geosite:tld-cn,DIRECT
+DOMAIN-KEYWORD,geosite:cn,DIRECT
+DOMAIN-KEYWORD,geosite:geolocation-!cn@cn,DIRECT
+
+[RoutingRule]
+FINAL,DIRECT
